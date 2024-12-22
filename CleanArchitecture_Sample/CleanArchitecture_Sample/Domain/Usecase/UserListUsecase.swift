@@ -13,12 +13,10 @@ public protocol UserListUsecaseProtocol {
     func getFavoritUsers() -> Result<[UserListItem], CoreDataError> //전체 즐겨찾기
     func saveFavoriteUser(user: UserListItem) -> Result<Bool, CoreDataError>
     func deleteFavoriteUser(userID: Int) -> Result<Bool, CoreDataError>
-    
-    /*
-     유저의 배열을 딕셔너리로 바꾼후 [초성: 키를 주고, [유저리스트]]
-     유저리스트 - 즐겨찾기 포함된 유저인지.
-     */
-    
+    //유저리스트 - 즐겨찾기 포함된 유저인지.
+    func checkFavoritsState(fetchUsers: [UserListItem], favoritUsers: [UserListItem]) -> [(user: UserListItem, isFavorit: Bool)]
+    //배열 -> Dic 초성 [초성 : [유저리스트]]
+    func covertListToDictionary(favoritUsers: [UserListItem]) -> [String: [UserListItem]]
 }
 
 public struct UserListUsecase: UserListUsecaseProtocol {
@@ -42,6 +40,22 @@ public struct UserListUsecase: UserListUsecaseProtocol {
     
     public func deleteFavoriteUser(userID: Int) -> Result<Bool, CoreDataError> {
         return repository.deleteFavoriteUser(userID: userID)
+    }
+    
+    public func checkFavoritsState(fetchUsers: [UserListItem], favoritUsers: [UserListItem]) -> [(user: UserListItem, isFavorit: Bool)] {
+        let favoritSet = Set(favoritUsers)
+        return fetchUsers.map { user in
+            return favoritSet.contains(user) ? (user: user, isFavorit: true) : (user: user, isFavorit: false)
+        }
+    }
+
+    public func covertListToDictionary(favoritUsers: [UserListItem]) -> [String : [UserListItem]] {
+        return favoritUsers.reduce(into: [String: [UserListItem]]()) { dict, user in //[:]
+            if let firstString = user.login.first {
+                let key = String(firstString).uppercased()
+                dict[key, default: []].append(user)
+            }
+        }
     }
 
 }
