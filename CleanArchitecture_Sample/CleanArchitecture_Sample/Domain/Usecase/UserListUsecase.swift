@@ -16,7 +16,7 @@ public protocol UserListUsecaseProtocol {
     //유저리스트 - 즐겨찾기 포함된 유저인지.
     func checkFavoritsState(fetchUsers: [UserListItem], favoritUsers: [UserListItem]) -> [(user: UserListItem, isFavorit: Bool)]
     //배열 -> Dic 초성 [초성 : [유저리스트]]
-    func covertListToDictionary(favoritUsers: [UserListItem]) -> [String: [UserListItem]]
+    func convertListToDictionary(favoritUsers: [UserListItem]) -> [String: [UserListItem]]
 }
 
 public struct UserListUsecase: UserListUsecaseProtocol {
@@ -49,7 +49,7 @@ public struct UserListUsecase: UserListUsecaseProtocol {
         }
     }
 
-    public func covertListToDictionary(favoritUsers: [UserListItem]) -> [String : [UserListItem]] {
+    public func convertListToDictionary(favoritUsers: [UserListItem]) -> [String : [UserListItem]] {
         return favoritUsers.reduce(into: [String: [UserListItem]]()) { dict, user in //[:]
             if let firstString = user.login.first {
                 let key = String(firstString).uppercased()
