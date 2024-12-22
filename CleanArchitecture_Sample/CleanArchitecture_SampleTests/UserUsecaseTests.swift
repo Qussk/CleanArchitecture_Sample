@@ -44,7 +44,7 @@ final class UserUsecaseTests: XCTestCase {
             UserListItem(id: 4, login: "Catfi", imageURL: ""),
         ]
         
-        let result = usecase.covertListToDictionary(favoritUsers: users)
+        let result = usecase.convertListToDictionary(favoritUsers: users)
         XCTAssertEqual(result.keys.count, 3)
         XCTAssertEqual(result["A"]?.count, nil)
         XCTAssertEqual(result["B"]?.count, 1)
