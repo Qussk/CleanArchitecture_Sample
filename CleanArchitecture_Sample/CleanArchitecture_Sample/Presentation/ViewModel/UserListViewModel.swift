@@ -10,6 +10,7 @@ import RxSwift
 import RxCocoa
 
 protocol UserListViewModelProtocol {
+    func trenform(input: UserListViewModel.Input) -> UserListViewModel.Output
 }
 
 public final class UserListViewModel: UserListViewModelProtocol {
@@ -37,7 +38,7 @@ public final class UserListViewModel: UserListViewModelProtocol {
     
     //VM에게 전달할 뷰의 데이터
     public struct Output {
-        let callData: Observable<[UserListCellData]>
+        let cellData: Observable<[UserListCellData]>
         let error: Observable<String>
     }
     
@@ -107,7 +108,7 @@ public final class UserListViewModel: UserListViewModelProtocol {
             return cellData
         }
         
-        return Output(callData: cellData, error: error.asObservable())
+        return Output(cellData: cellData, error: error.asObservable())
     }
     
     //유저 통신 fetchData
