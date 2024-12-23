@@ -114,7 +114,7 @@ public final class UserListViewModel: UserListViewModelProtocol {
     private func fetchUser(query: String, page: Int) {
         guard let urlAllowedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return } //인코딩
         Task {
-            let result = await usecase.fetchUser(query: query, page: page)
+            let result = await usecase.fetchUser(query: urlAllowedQuery, page: page)
             switch result {
             case .success(let users):
                 return page == 0 ? fetchUserList.accept(users.items) : fetchUserList.accept(fetchUserList.value + users.items)
@@ -176,6 +176,13 @@ public final class UserListViewModel: UserListViewModelProtocol {
 public enum TabButtonType {
     case api
     case favorite
+    
+    var title: String {
+        switch self {
+        case .api: return "조회"
+        case .favorite: return "즐겨찾기"
+        }
+    }
 }
 
 public enum UserListCellData {
