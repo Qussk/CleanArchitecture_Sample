@@ -16,6 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene),
         let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         window = UIWindow(windowScene: windowScene)
+        window?.backgroundColor = .white
         
         let coreData = UserCoreData(viewContext: appDelegate.persistentContainer.viewContext) //코어데이터 생성
         let netWork = UserNetwork(manager: NetworkManager(session: UserSession())) //네트워크 생성

@@ -176,6 +176,13 @@ public final class UserListViewModel: UserListViewModelProtocol {
 public enum TabButtonType {
     case api
     case favorite
+    
+    var title: String {
+        switch self {
+        case .api: return "조회"
+        case .favorite: return "즐겨찾기"
+        }
+    }
 }
 
 public enum UserListCellData {
