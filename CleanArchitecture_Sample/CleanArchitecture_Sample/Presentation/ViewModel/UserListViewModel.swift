@@ -114,7 +114,7 @@ public final class UserListViewModel: UserListViewModelProtocol {
     private func fetchUser(query: String, page: Int) {
         guard let urlAllowedQuery = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else { return } //인코딩
         Task {
-            let result = await usecase.fetchUser(query: query, page: page)
+            let result = await usecase.fetchUser(query: urlAllowedQuery, page: page)
             switch result {
             case .success(let users):
                 return page == 0 ? fetchUserList.accept(users.items) : fetchUserList.accept(fetchUserList.value + users.items)
