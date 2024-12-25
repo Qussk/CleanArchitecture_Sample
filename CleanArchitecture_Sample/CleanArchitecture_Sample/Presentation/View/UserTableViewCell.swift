@@ -27,18 +27,7 @@ final class UserTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        addSubview(userImageView)
-        addSubview(nameLabel)
-
-        userImageView.snp.makeConstraints { make in
-            make.leading.top.bottom.equalToSuperview().inset(20)
-            make.width.height.equalTo(80)
-        }
-        nameLabel.snp.makeConstraints { make in
-            make.top.equalTo(userImageView)
-            make.leading.equalTo(userImageView.snp.trailing).offset(8)
-            make.trailing.equalToSuperview().inset(20)
-        }
+        setUpView()
     }
     
     func apply(cellData: UserListCellData) {
@@ -49,5 +38,26 @@ final class UserTableViewCell: UITableViewCell {
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+}
+
+
+// MARK: - Set Up
+
+private extension UserTableViewCell {
+    func setUpView() {
+        addSubview(userImageView)
+        addSubview(nameLabel)
+
+        userImageView.snp.makeConstraints { make in
+            make.leading.top.bottom.equalToSuperview().inset(20)
+            make.height.equalTo(80).priority(.high)
+            make.width.equalTo(80)
+        }
+        nameLabel.snp.makeConstraints { make in
+            make.top.equalTo(userImageView)
+            make.leading.equalTo(userImageView.snp.trailing).offset(8)
+            make.trailing.equalToSuperview().inset(20)
+        }
     }
 }

@@ -65,9 +65,6 @@ class UserListViewController: UIViewController {
         
         outPut.error.bind { [weak self] ms in
             print(ms)
-//            let alert = UIAlertController(title: "알림", message: ms, preferredStyle: .alert)
-//            alert.addAction(.init(title: "확인", style: .default))
-//            self?.present(alert, animated: true)
         }.disposed(by: disposeBag)
     }
     
