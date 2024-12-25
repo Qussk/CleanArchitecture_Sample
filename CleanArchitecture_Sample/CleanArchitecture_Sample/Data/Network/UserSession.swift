@@ -11,8 +11,7 @@ import Alamofire
 //네트워크 호출 테스트코드 MockSession 추상화
 
 public protocol SessionProtocol {
-    func request(_ convertible: URLConvertible, method: HTTPMethod, paramerers: Parameters, headers: HTTPHeaders) -> DataRequest
-    
+    func request(_ convertible: URLConvertible, method: HTTPMethod, paramerers: Parameters?, headers: HTTPHeaders?) -> DataRequest
 }
 
 class UserSession: SessionProtocol {
@@ -25,11 +24,10 @@ class UserSession: SessionProtocol {
     
     func request(
         _ convertible: URLConvertible,
-        method: HTTPMethod,
-        paramerers: Parameters,
-        headers: HTTPHeaders
-    ) -> DataRequest {
-        return session.request(convertible, method: method, parameters: paramerers, headers:headers)
+        method: HTTPMethod = .get,
+        paramerers: Parameters? = nil,
+        headers: HTTPHeaders? = nil) -> DataRequest {
+        return session.request(convertible, method: method, parameters: paramerers, headers: headers)
     }
 
 }

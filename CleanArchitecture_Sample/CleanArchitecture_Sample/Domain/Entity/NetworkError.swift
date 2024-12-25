@@ -22,7 +22,7 @@ public enum NetworkError: Error {
         case .invalid:
             return "응답값이 유효하지 않음"
         case .failToDecode(let description):
-            return "디코팅 에러 \(description)"
+            return "디코딩 에러 \(description)"
         case .dataNil:
             return "데이터가 없습니다."
         case .serverError(let statusCode):

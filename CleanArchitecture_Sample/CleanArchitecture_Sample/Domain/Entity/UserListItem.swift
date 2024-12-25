@@ -11,7 +11,7 @@ import Foundation
 public struct UserListResult: Decodable {
     let totalCount: Int
     let incompleteResults: Bool
-    let items : [UserListItem]
+    let items: [UserListItem]
     
     enum CodingKeys: String, CodingKey {
         case totalCount = "total_count"
@@ -35,7 +35,7 @@ public struct UserListItem: Decodable, Hashable {
     enum CodingKeys: String, CodingKey {
         case id
         case login
-        case imageURL = "avater_url"
+        case imageURL = "avatar_url"
     }
 
     public init(from decoder: any Decoder) throws {
