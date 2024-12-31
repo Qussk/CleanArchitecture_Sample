@@ -7,8 +7,10 @@
 
 import UIKit
 import Kingfisher
+import RxSwift
 
 final class UserTableViewCell: UITableViewCell {
+    public var disposeBag = DisposeBag()
     private let userImageView = {
         let imageView = UIImageView()
         imageView.layer.borderWidth = 0.5
@@ -25,15 +27,29 @@ final class UserTableViewCell: UITableViewCell {
         return label
     }()
     
+    public let favoritButton = {
+        let button = UIButton()
+        button.setImage(.init(systemName: "heart"), for: .normal)
+        button.setImage(.init(systemName: "heart.fill"), for: .selected)
+        button.tintColor = .systemPink
+        return button
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUpView()
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        disposeBag = DisposeBag() //셀 다시 그릴떄 초기화
     }
     
     func apply(cellData: UserListCellData) {
         guard case let .user(user, isFavorite) = cellData else { return }
         userImageView.kf.setImage(with: URL(string: user.imageURL))
         nameLabel.text = user.login
+        favoritButton.isSelected = isFavorite
     }
     
     required init(coder: NSCoder) {
@@ -46,9 +62,9 @@ final class UserTableViewCell: UITableViewCell {
 
 private extension UserTableViewCell {
     func setUpView() {
-        addSubview(userImageView)
-        addSubview(nameLabel)
-
+        contentView.addSubview(userImageView)
+        contentView.addSubview(nameLabel)
+        contentView.addSubview(favoritButton)
         userImageView.snp.makeConstraints { make in
             make.leading.top.bottom.equalToSuperview().inset(20)
             make.height.equalTo(80).priority(.high)
@@ -58,6 +74,11 @@ private extension UserTableViewCell {
             make.top.equalTo(userImageView)
             make.leading.equalTo(userImageView.snp.trailing).offset(8)
             make.trailing.equalToSuperview().inset(20)
+        }
+        favoritButton.snp.makeConstraints { make in
+            make.width.height.equalTo(40)
+            make.centerY.equalToSuperview()
+            make.trailing.equalTo(-20)
         }
     }
 }

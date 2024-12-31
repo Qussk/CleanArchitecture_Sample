@@ -118,7 +118,7 @@ public final class UserListViewModel: UserListViewModelProtocol {
             let result = await usecase.fetchUser(query: urlAllowedQuery, page: page)
             switch result {
             case .success(let users):
-                return page == 0 ? fetchUserList.accept(users.items) : fetchUserList.accept(fetchUserList.value + users.items)
+                return page == 1 ? fetchUserList.accept(users.items) : fetchUserList.accept(fetchUserList.value + users.items)
             case .failure(let error):
                 self.error.accept(error.description)
             }
@@ -134,7 +134,7 @@ public final class UserListViewModel: UserListViewModelProtocol {
             }
             else {
                 let filteredUsers = users.filter { user in
-                    user.login.contains(query)
+                    user.login.contains(query.lowercased())
                 }
                 favoriteUserList.accept(filteredUsers)
             }
