@@ -35,6 +35,7 @@ class UserListViewController: UIViewController {
     private let tableView = {
         let tableView = UITableView()
         tableView.register(UserTableViewCell.self, forCellReuseIdentifier: "UserTableViewCell")
+        tableView.register(UserTableViewCell.self, forCellReuseIdentifier: "HeaderTableViewCell")
         return tableView
     }()
     
@@ -60,6 +61,12 @@ class UserListViewController: UIViewController {
         outPut.cellData.bind(to: tableView.rx.items) { tableView, index, item in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "UserTableViewCell") else { return UITableViewCell() }
             (cell as? UserTableViewCell)?.apply(cellData: item)
+            
+            if let cell = cell as? UserTableViewCell, case let .user(user, isFavorite) = item {
+                cell.favoritButton.rx.tap.bind {
+                    isFavorite ? self.deleteFavoriy.accept(user.id) : self.saveFavorit.accept(user)
+                }.disposed(by: cell.disposeBag) //바인딩을 해제하기 위해. 셀을 다시 그릴때 disposeBag으로 없애야함.
+            }
             return cell
         }.disposed(by: disposeBag)
         

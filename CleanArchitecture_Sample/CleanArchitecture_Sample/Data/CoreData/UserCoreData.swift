@@ -39,7 +39,7 @@ public struct UserCoreData: UserCoreDataProtocol {
     }
     
     public func saveFavoriteUser(user: UserListItem) -> Result<Bool, CoreDataError> {
-        guard let entity = NSEntityDescription.entity(forEntityName: "FavoritUSer", in: viewContext) else {
+        guard let entity = NSEntityDescription.entity(forEntityName: "FavoriteUser", in: viewContext) else {
             return .failure(.entitiyNotFound("FavoritUSer: Not Found"))
         }
         let userObject = NSManagedObject(entity: entity, insertInto: viewContext)
