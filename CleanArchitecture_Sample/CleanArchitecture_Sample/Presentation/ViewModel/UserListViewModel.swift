@@ -100,6 +100,7 @@ public final class UserListViewModel: UserListViewModelProtocol {
                 let dict = usecase.convertListToDictionary(favoritUsers: favorite)
                 let keys = dict.keys.sorted()
                 keys.forEach { key in
+                    cellData.append(.header(key))
                     if let users = dict[key] {
                         cellData += users.map { UserListCellData.user(user: $0, isFavorite: true) }
                     }
@@ -189,4 +190,16 @@ public enum TabButtonType {
 public enum UserListCellData {
     case user(user: UserListItem, isFavorite: Bool)
     case header(String)
+    
+    var id: String {
+        switch self {
+        case .header: return "HeaderTableViewCell"
+        case .user: return "UserTableViewCell"
+        }
+    }
+}
+
+
+protocol UserListCellProtocol {
+    func apply(cellData: UserListCellData)
 }

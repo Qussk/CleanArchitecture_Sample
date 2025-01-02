@@ -9,7 +9,7 @@ import UIKit
 import Kingfisher
 import RxSwift
 
-final class UserTableViewCell: UITableViewCell {
+final class UserTableViewCell: UITableViewCell, UserListCellProtocol {
     public var disposeBag = DisposeBag()
     private let userImageView = {
         let imageView = UIImageView()

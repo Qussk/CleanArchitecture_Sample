@@ -20,7 +20,7 @@ public class NetworkManager: NetworkManagerProtocol {
     
 
     private let tokenHeader: HTTPHeaders = {
-        let tokenHeader = HTTPHeader(name: "Authorization", value: "Bearer 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")
+        let tokenHeader = HTTPHeader(name: "Authorization", value: "Bearer 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")
         return HTTPHeaders([tokenHeader])
     }()
     
