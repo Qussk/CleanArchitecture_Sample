@@ -16,10 +16,15 @@
 ## 📦 사용된 라이브러리
 
 RxSwift: 반응형 프로그래밍을 위한 라이브러리로, 데이터 스트림과 이벤트를 처리합니다.
+
 RxCocoa: RxSwift를 UIKit과 연결하기 위한 확장.
+
 Alamofire: 경량화된 HTTP 네트워크 요청 라이브러리.
+
 Kingfisher: 효율적인 이미지 다운로드 및 캐싱을 지원하는 라이브러리.
+
 SnapKit: 코드 기반 제약 조건을 간결하게 작성할 수 있는 UI 레이아웃 라이브러리.
+
 
 
 ## API
@@ -38,14 +43,14 @@ GitHub_API : <https://docs.github.com/ko/rest/search/search?apiVersion=2022-11-2
 3. **가독성과 모듈화**  
    Clean Architecture 원칙을 준수하여 이해하기 쉽고 테스트 가능하며 유지보수하기 좋은 코드를 작성하는 데 중점을 두었습니다.
 
----
 
 
 ## 📚 프로젝트 개요
 
 ### 클린 아키텍처 다이어그램
 
-    ![클린아키텍처의 구조 3 영역](https://miro.medium.com/v2/resize:fit:640/format:webp/1*wvjjjXBuMfrxd7JxL8L9Ww.png)
+![클린아키텍처의 구조 3 영역](https://miro.medium.com/v2/resize:fit:640/format:webp/1*wvjjjXBuMfrxd7JxL8L9Ww.png)
+
 
 ```text
        ┌───────────────┐
@@ -87,6 +92,7 @@ ViewModel: 프레젠테이션 로직을 처리하고 RxCocoa/RxSwift를 통해 U
 View: 데이터를 보여주고 사용자와 상호작용을 처리하며, 완전히 수동적(passive)입니다.
 
 
+
 ### 설계 원칙
 프로토콜 지향 프로그래밍: 각 계층은 구체적인 구현이 아닌 프로토콜을 통해 상호작용합니다.
 
@@ -95,9 +101,10 @@ View: 데이터를 보여주고 사용자와 상호작용을 처리하며, 완�
 리액티브 스트림: RxSwift와 RxCocoa를 활용하여 비동기 작업과 UI 업데이트를 원활히 처리합니다.
 
 
+
 ### 폴더 구조
 
-    ![클린아키텍처의 폴더 구조](https://github.com/kudoleh/iOS-Clean-Architecture-MVVM/raw/master/README_FILES/CleanArchitecture+MVVM.png?raw=true)
+![클린아키텍처의 폴더 구조](https://github.com/kudoleh/iOS-Clean-Architecture-MVVM/raw/master/README_FILES/CleanArchitecture+MVVM.png?raw=true)
 
     
 ```text
@@ -194,7 +201,9 @@ Resources: 애셋, 설정 파일 및 기타 유틸리티.
 ```
 
         
+### 참고 
 
+iOS-Clean-Architecture-MVVM : <https://github.com/kudoleh/iOS-Clean-Architecture-MVVM>
 
 
 
