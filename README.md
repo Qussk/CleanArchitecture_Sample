@@ -1,7 +1,7 @@
 # CleanArchitecture_Sample
 
 
-이 레포지토리는 **Clean Architecture(클린 아키텍처)**를 이용해 구현된 iOS 샘플 프로젝트입니다. 본 프로젝트는 Clean Architecture의 핵심 개념인 추상화와 의존성 역전에 중점을 두어 구현되었습니다.
+이 레포지토리는 **Clean Architecture(클린 아키텍처)** 를 이용해 구현된 iOS 샘플 프로젝트입니다. 본 프로젝트는 Clean Architecture의 핵심 개념인 추상화와 의존성 역전에 중점을 두어 구현되었습니다.
 
 
 ## 🛠️ 주요 기능
@@ -76,6 +76,7 @@ GitHub_API : <https://docs.github.com/ko/rest/search/search?apiVersion=2022-11-2
 *View에서 Entities로 갈수록 고수준 컴포넌트. View가 가장 변경이 많아 저수준 컴포넌트입니다.*
 *화살표는 의존성 방향을 나타내며, 아키텍처의 외곽 계층이 내부 계층에 의존해야합니다.*
 
+
 > 🔑 핵심 원칙: 안쪽 계층은 바깥쪽 계층에 대해 전혀 모른다.
 > > 의존성은 항상 안쪽(Entities)으로 향한다.
 > > 외곽 계층(View, Controller, Data 등)은 내부 계층(Use Cases, Entities)에 의존할 수 있지만, 반대는 불가능하다.
@@ -120,13 +121,17 @@ CleanArchitectureSample
 │   ├── Network
 └── Resources
 ```
+
 Presentation: UI 및 ViewModel 관련 컴포넌트.
+
 Domain: 핵심 비즈니스 로직, 유스케이스 및 엔티티 포함.
+
 Data: 데이터 가져오기 및 저장 처리. 리포지토리와 네트워크 계층 포함.
+
 Resources: 애셋, 설정 파일 및 기타 유틸리티.
 
 
-#### CleanArchitecture_Sample 전체 Tree. 
+### CleanArchitecture_Sample 전체 Tree 
 ```text
 .
 ├── CleanArchitecture_Sample
@@ -200,8 +205,10 @@ Resources: 애셋, 설정 파일 및 기타 유틸리티.
 
 ```
 
+
         
 ### 참고 
+
 
 iOS-Clean-Architecture-MVVM : <https://github.com/kudoleh/iOS-Clean-Architecture-MVVM>
 
