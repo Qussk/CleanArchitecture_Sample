@@ -35,7 +35,7 @@ class UserListViewController: UIViewController {
     private let tableView = {
         let tableView = UITableView()
         tableView.register(UserTableViewCell.self, forCellReuseIdentifier: "UserTableViewCell")
-        tableView.register(UserTableViewCell.self, forCellReuseIdentifier: "HeaderTableViewCell")
+        tableView.register(HeaderTableViewCell.self, forCellReuseIdentifier: "HeaderTableViewCell")
         return tableView
     }()
     
@@ -43,24 +43,18 @@ class UserListViewController: UIViewController {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         setUI()
-        bindView() //구독을 하여 관리
         bindViewModel() //output구현
+        bindView() //구독을 하여 관리
     }
-    
-    private func bindView() {
-        tabButtonView.selectedType.bind { type in
-            print("type: \(type)")
-        }.disposed(by: disposeBag)
-    }
-    
+        
     private func bindViewModel() {
-        let tabbuttonType = tabButtonView.selectedType.compactMap { $0 } //옵셔널제거
+        let tabbuttonType = tabButtonView.selectedType.compactMap { $0 }
         let query = searchTextField.rx.text.orEmpty.debounce(.milliseconds(300), scheduler: MainScheduler.instance)
         let outPut = viewModel.trenform(input: UserListViewModel.Input(tabButtonType: tabbuttonType, query: query, saveFavorite: saveFavorit.asObservable(), deleteFavorite: deleteFavoriy.asObservable(), fetchMore: fetchMore.asObservable()))
                 
         outPut.cellData.bind(to: tableView.rx.items) { tableView, index, item in
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "UserTableViewCell") else { return UITableViewCell() }
-            (cell as? UserTableViewCell)?.apply(cellData: item)
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: item.id) else { return UITableViewCell() }
+            (cell as? UserListCellProtocol)?.apply(cellData: item)
             
             if let cell = cell as? UserTableViewCell, case let .user(user, isFavorite) = item {
                 cell.favoritButton.rx.tap.bind {
@@ -72,6 +66,20 @@ class UserListViewController: UIViewController {
         
         outPut.error.bind { [weak self] ms in
             print(ms)
+        }.disposed(by: disposeBag)
+    }
+    
+    private func bindView() {
+       // tabButtonView.selectedType.bind { type in
+           // print("type: \(type)")
+       // }.disposed(by: disposeBag)
+        
+        tableView.rx.prefetchRows.bind { [weak self] indexPath in
+            guard let rows = self?.tableView.numberOfRows(inSection: 0),
+                  let itemIndex = indexPath.first?.item else { return }
+            if itemIndex >= rows - 1 {
+                self?.fetchMore.accept(())
+            }
         }.disposed(by: disposeBag)
     }
     
