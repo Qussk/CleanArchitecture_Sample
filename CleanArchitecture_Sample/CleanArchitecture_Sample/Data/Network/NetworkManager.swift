@@ -19,15 +19,15 @@ public class NetworkManager: NetworkManagerProtocol {
     }
     
 
-    private let tokenHeader: HTTPHeaders = {
-        let tokenHeader = HTTPHeader(name: "Authorization", value: "Bearer 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")
-        return HTTPHeaders([tokenHeader])
-    }()
+//    private let tokenHeader: HTTPHeaders = {
+//        let tokenHeader = HTTPHeader(name: "Authorization", value: "Bearer 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")
+//        return HTTPHeaders([tokenHeader])
+//    }()
     
     func fetchData<T: Decodable>(url: String, method: HTTPMethod, paramerers: Parameters?) async -> Result<T, NetworkError> {
         guard let url = URL(string: url) else { return .failure(.urlError) }
         
-        let result = await session.request(url, method: method, paramerers: paramerers, headers: tokenHeader).serializingData().response
+        let result = await session.request(url, method: method, paramerers: paramerers, headers: nil).serializingData().response
         if let error = result.error { return .failure(.requestFailed(error.localizedDescription)) }
         guard let data = result.data else { return .failure(.dataNil) }
         guard let response = result.response else { return .failure(.invalid)}
