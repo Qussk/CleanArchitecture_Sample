@@ -206,6 +206,15 @@ Resources: 애셋, 설정 파일 및 기타 유틸리티.
 ```
 
 
+### 화면 
+
+<p align="center">
+  <img src="images/IMG_1732.png" alt="아아디 조회" width="45%" />
+  <img src="images/IMG_1733.png" alt="즐겨찾기" width="45%" />
+</p>
+
+
+
         
 ### 참고 
 
